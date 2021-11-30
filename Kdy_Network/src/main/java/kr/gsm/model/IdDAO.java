@@ -30,10 +30,10 @@ public class IdDAO<MemberDTO> {
 	public int idInsert(IdDTO dto) {
 		int cnt = -1;
 		System.out.println("아이디");
+		conn = getConnection();
 		//초기 아이디값 = null, 아이디를 입력했으면 null이 아니므로 null아닌 아이디에 맞는 sql문 실행
 		if (dto.getWebid() != null) {
 			System.out.println(dto.getWebid());
-			conn = getConnection();
 			String sql = "insert into web_id_tbl values(?,?,?,?)";
 			try {
 				ps = conn.prepareStatement(sql);
@@ -46,7 +46,6 @@ public class IdDAO<MemberDTO> {
 				e.printStackTrace();
 			}
 		} else if (dto.getGameid() != null) {
-			conn = getConnection();
 			String sql = "insert into game_id_tbl values(?,?,?,?)";
 			try {
 				ps = conn.prepareStatement(sql);
@@ -59,7 +58,6 @@ public class IdDAO<MemberDTO> {
 				e.printStackTrace();
 			}
 		} else if (dto.getSnsid() != null) {
-			conn = getConnection();
 			String sql = "insert into sns_id_tbl values(?,?,?,?)";
 			try {
 				ps = conn.prepareStatement(sql);
@@ -78,9 +76,9 @@ public class IdDAO<MemberDTO> {
 	//LIST 코드
 	public List<IdDTO> idList(String type) {
 		List<IdDTO> list = new ArrayList<IdDTO>();
+		conn = getConnection();
 		//type 변수를 받아와서 웹,game,sns 구별후 리스트 호출
 		if (type.equals("Web")) {
-			conn = getConnection();
 			String SQL = "select webid, pwd, platform,joindate from web_id_tbl";
 			try {
 				ps = conn.prepareStatement(SQL);
@@ -98,10 +96,8 @@ public class IdDAO<MemberDTO> {
 				e.printStackTrace();
 			}
 		} else if (type.equals("Game")) {
-			conn = getConnection();
 			String SQL = "select gameid, pwd, platform,joindate from game_id_tbl";
 			try {
-				ps = conn.prepareStatement(SQL);
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					String gameid = rs.getString("gameid");
@@ -116,7 +112,6 @@ public class IdDAO<MemberDTO> {
 				e.printStackTrace();
 			}
 		} else {
-			conn = getConnection();
 			String SQL = "select snsid, pwd, platform,joindate from sns_id_tbl";
 			try {
 				ps = conn.prepareStatement(SQL);
