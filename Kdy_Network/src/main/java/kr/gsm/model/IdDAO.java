@@ -41,7 +41,7 @@ public class IdDAO<MemberDTO> {
 				ps.setString(2, dto.getPwd());
 				ps.setString(3, dto.getPlatform());
 				ps.setString(4, dto.getJoindate());
-				cnt = ps.executeUpdate();
+				cnt = ps.executeUpdate(); //SQL 업데이트
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
