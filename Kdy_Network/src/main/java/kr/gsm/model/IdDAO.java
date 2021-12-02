@@ -98,6 +98,7 @@ public class IdDAO<MemberDTO> {
 		} else if (type.equals("Game")) {
 			String SQL = "select gameid, pwd, platform,joindate from game_id_tbl";
 			try {
+				ps = conn.prepareStatement(SQL);
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					String gameid = rs.getString("gameid");
